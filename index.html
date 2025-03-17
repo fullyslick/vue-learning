@@ -10,38 +10,63 @@
     <title>Vue Basics</title>
     <!--    Load view from CDN-->
     <script src="https://unpkg.com/vue@3"></script>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+      }
+
+      button {
+        color: white;
+      }
+
+      .button-red {
+        background-color: red;
+      }
+
+      .button-blue {
+        background-color: blue;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      <!-- v-model is a directive which creates a two-way data binding between the input's value and the data property 'greeting' -->
-      <input type="text" v-model="greeting" />
-
-      <!--This input and the adjacent span display the reactive data property `greeting` -->
-      {{ greeting }} ({{greeting.length}})
+      <!--      :class is a directive that allows you to add classes to an element based on a condition. This is the shorthand for "v-bind:class"-->
+      <!--      @click is a directive that allows you to add an event listener to an element. This is the shorthand for "v-on:click"-->
+      <button
+        :class="isActive ? 'button-red' : 'button-blue'"
+        @click="toggleClass"
+      >
+        Click Me
+      </button>
     </div>
     <script>
       Vue.createApp({
         /**
-         * The data function returns an object containing reactive data properties
-         * for the Vue application. Currently, it includes:
-         * - greeting: A string initialized to 'Hello World'.
-         * This data can be used within the Vue component to display or manipulate
-         * the greeting message.
+         * Returns the initial reactive state for the Vue component.
+         *
+         * @returns {Object} An object containing the state properties.
+         * - isActive: A boolean indicating whether the button is active or not.
          */
         data() {
           return {
-            greeting: "Hello World",
+            isActive: false,
           };
         },
 
         /**
-         * A lifecycle hook that runs after the component has been mounted.
-         * Changes the data property `greeting` after 3 seconds.
+         * Contains methods invoked by event listeners.
          */
-        mounted() {
-          setTimeout(() => {
-            this.greeting = "Changed programmatically";
-          }, 3000);
+        methods: {
+          // Called by the click event listener.
+          toggleClass() {
+            this.isActive = !this.isActive;
+          },
         },
       }).mount("#app");
     </script>
