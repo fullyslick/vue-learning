@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Vue Basics</title>
+    <!--    Load view from CDN-->
+    <script src="https://unpkg.com/vue@3"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- v-model is a directive which creates a two-way data binding between the input's value and the data property 'greeting' -->
+      <input type="text" v-model="greeting" />
+
+      <!--This input and the adjacent span display the reactive data property `greeting` -->
+      {{ greeting }} ({{greeting.length}})
+    </div>
+    <script>
+      Vue.createApp({
+        /**
+         * The data function returns an object containing reactive data properties
+         * for the Vue application. Currently, it includes:
+         * - greeting: A string initialized to 'Hello World'.
+         * This data can be used within the Vue component to display or manipulate
+         * the greeting message.
+         */
+        data() {
+          return {
+            greeting: "Hello World",
+          };
+        },
+
+        /**
+         * A lifecycle hook that runs after the component has been mounted.
+         * Changes the data property `greeting` after 3 seconds.
+         */
+        mounted() {
+          setTimeout(() => {
+            this.greeting = "Changed programmatically";
+          }, 3000);
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
