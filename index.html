@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -8,66 +8,29 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Vue Basics</title>
-    <!--    Load view from CDN-->
+    <!--    Load Vue from CDN-->
     <script src="https://unpkg.com/vue@3"></script>
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
 
-      body {
-        display: grid;
-        place-items: center;
-      }
-
-      button {
-        color: white;
-      }
-
-      .button-red {
-        background-color: red;
-      }
-
-      .button-blue {
-        background-color: blue;
-      }
-    </style>
+    <!-- Load Tailwind from CDN-->
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
+  <body class="h-full grid place-items-center">
     <div id="app">
-      <!--      :class is a directive that allows you to add classes to an element based on a condition. This is the shorthand for "v-bind:class"-->
-      <!--      @click is a directive that allows you to add an event listener to an element. This is the shorthand for "v-on:click"-->
-      <button
-        :class="isActive ? 'button-red' : 'button-blue'"
-        @click="toggleClass"
-      >
-        Click Me
-      </button>
+      <section>
+        <h2 class="font-bold mb-2">Assignments</h2>
+
+        <ul>
+          <li>Finish project <input type="checkbox" /></li>
+          <li>Read chapter 4 <input type="checkbox" /></li>
+          <li>Turn in homework <input type="checkbox" /></li>
+        </ul>
+      </section>
     </div>
     <script>
-      Vue.createApp({
-        /**
-         * Returns the initial reactive state for the Vue component.
-         *
-         * @returns {Object} An object containing the state properties.
-         * - isActive: A boolean indicating whether the button is active or not.
-         */
-        data() {
-          return {
-            isActive: false,
-          };
-        },
+      let app = {};
 
-        /**
-         * Contains methods invoked by event listeners.
-         */
-        methods: {
-          // Called by the click event listener.
-          toggleClass() {
-            this.isActive = !this.isActive;
-          },
-        },
+      Vue.createApp({
+        app,
       }).mount("#app");
     </script>
   </body>
