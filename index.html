@@ -20,9 +20,7 @@
      It renders the element in the DOM regardless of the condition
      but toggles the element's CSS display property based on the condition.
      This can be useful for toggling visibility without re-rendering the element. -->
-      <section
-        v-show="assignments.filter(assignment => !assignment.isDone).length"
-      >
+      <section v-show="inProgressAssignments.length">
         <h2 class="font-bold mb-2">In Progress</h2>
 
         <ul>
@@ -41,9 +39,7 @@
 
                ":key" directive is used to specify a unique key for each item
           -->
-          <li
-            v-for="assignment in assignments.filter(assignment => !assignment.isDone)"
-          >
+          <li v-for="assignment in inProgressAssignments">
             <label>
               {{assignment.name}}
 
@@ -61,10 +57,7 @@
            The element and all its children will be rendered only if the condition is true.
            If the condition is false, the element and its children will be removed from the DOM.
       -->
-      <section
-        class="mt-4"
-        v-if="assignments.filter(assignment => assignment.isDone).length"
-      >
+      <section class="mt-4" v-if="completedAssignments.length">
         <h2 class="font-bold mb-2">Completed</h2>
 
         <ul>
@@ -83,9 +76,7 @@
 
                ":key" directive is used to specify a unique key for each item
           -->
-          <li
-            v-for="assignment in assignments.filter(assignment => assignment.isDone)"
-          >
+          <li v-for="assignment in completedAssignments">
             <label>
               {{assignment.name}}
 
@@ -110,6 +101,17 @@
               { name: "Turn in homework", isDone: false, id: 3 },
             ],
           };
+        },
+        // Computed props are functions that are called when the component is rendered.
+        // The value returned from the function is cached and reused until the
+        // dependencies of the function change.
+        computed: {
+          completedAssignments() {
+            return this.assignments.filter((assignment) => assignment.isDone);
+          },
+          inProgressAssignments() {
+            return this.assignments.filter((assignment) => !assignment.isDone);
+          },
         },
       };
 
