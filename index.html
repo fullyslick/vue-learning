@@ -20,18 +20,46 @@
         <h2 class="font-bold mb-2">Assignments</h2>
 
         <ul>
-          <li>Finish project <input type="checkbox" /></li>
-          <li>Read chapter 4 <input type="checkbox" /></li>
-          <li>Turn in homework <input type="checkbox" /></li>
+          <!-- "v-for" directive is used to loop through an array or an object.
+               It loops through the array or object and creates a new
+               element for each item in the array or object.
+               The v-for directive requires a special syntax in the form of
+               "item in items", where "item" is the singular of the items
+               and "items" is the plural of the items.
+
+               "v-model" directive is used for two-way data binding.
+               It binds the input element to the data model, so when
+               the input value changes, the model is updated automatically.
+               Conversely, when the model is updated, the input element
+               reflects the new value.
+
+               ":key" directive is used to specify a unique key for each item
+          -->
+          <li v-for="assignment in assignments">
+            <label>
+              {{assignment.name}}
+
+              <input type="checkbox" v-model="assignment.isDone" :key="assignment.id"/>
+            </label>
+          </li>
         </ul>
       </section>
     </div>
     <script>
-      let app = {};
+      // This is the typical shape of component declaration
+      let app = {
+        data() {
+          return {
+            assignments: [
+              { name: "Finish project", isDone: false, id: 1 },
+              { name: "Read chapter 4", isDone: false, id: 2 },
+              { name: "Turn in homework", isDone: false, id: 3 },
+            ],
+          };
+        },
+      };
 
-      Vue.createApp({
-        app,
-      }).mount("#app");
+      Vue.createApp(app).mount("#app");
     </script>
   </body>
 </html>
