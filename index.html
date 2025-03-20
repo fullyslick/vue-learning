@@ -16,101 +16,37 @@
   </head>
   <body class="h-full grid place-items-center">
     <div id="app">
-      <!-- "v-show" directive is used to conditionally display an element.
-     It renders the element in the DOM regardless of the condition
-     but toggles the element's CSS display property based on the condition.
-     This can be useful for toggling visibility without re-rendering the element. -->
-      <section v-show="inProgressAssignments.length">
-        <h2 class="font-bold mb-2">In Progress</h2>
-
-        <ul>
-          <!-- "v-for" directive is used to loop through an array or an object.
-               It loops through the array or object and creates a new
-               element for each item in the array or object.
-               The v-for directive requires a special syntax in the form of
-               "item in items", where "item" is the singular of the items
-               and "items" is the plural of the items.
-
-               "v-model" directive is used for two-way data binding.
-               It binds the input element to the data model, so when
-               the input value changes, the model is updated automatically.
-               Conversely, when the model is updated, the input element
-               reflects the new value.
-
-               ":key" directive is used to specify a unique key for each item
-          -->
-          <li v-for="assignment in inProgressAssignments">
-            <label>
-              {{assignment.name}}
-
-              <input
-                type="checkbox"
-                v-model="assignment.isDone"
-                :key="assignment.id"
-              />
-            </label>
-          </li>
-        </ul>
-      </section>
-
-      <!-- "v-if" directive is used to conditionally render an element.
-           The element and all its children will be rendered only if the condition is true.
-           If the condition is false, the element and its children will be removed from the DOM.
-      -->
-      <section class="mt-4" v-if="completedAssignments.length">
-        <h2 class="font-bold mb-2">Completed</h2>
-
-        <ul>
-          <!-- "v-for" directive is used to loop through an array or an object.
-               It loops through the array or object and creates a new
-               element for each item in the array or object.
-               The v-for directive requires a special syntax in the form of
-               "item in items", where "item" is the singular of the items
-               and "items" is the plural of the items.
-
-               "v-model" directive is used for two-way data binding.
-               It binds the input element to the data model, so when
-               the input value changes, the model is updated automatically.
-               Conversely, when the model is updated, the input element
-               reflects the new value.
-
-               ":key" directive is used to specify a unique key for each item
-          -->
-          <li v-for="assignment in completedAssignments">
-            <label>
-              {{assignment.name}}
-
-              <input
-                type="checkbox"
-                v-model="assignment.isDone"
-                :key="assignment.id"
-              />
-            </label>
-          </li>
-        </ul>
-      </section>
+      <!-- This is how to render a component and inject content rendered in the slot -->
+      <app-button>Click me</app-button>
+      <app-button>Submit</app-button>
     </div>
     <script>
       // This is the typical shape of component declaration
       let app = {
-        data() {
-          return {
-            assignments: [
-              { name: "Finish project", isDone: false, id: 1 },
-              { name: "Read chapter 4", isDone: false, id: 2 },
-              { name: "Turn in homework", isDone: false, id: 3 },
-            ],
-          };
-        },
-        // Computed props are functions that are called when the component is rendered.
-        // The value returned from the function is cached and reused until the
-        // dependencies of the function change.
-        computed: {
-          completedAssignments() {
-            return this.assignments.filter((assignment) => assignment.isDone);
-          },
-          inProgressAssignments() {
-            return this.assignments.filter((assignment) => !assignment.isDone);
+        // Declares the components that will be used in the app
+        components: {
+          "app-button": {
+            // Declares the template/markup that will be used by the app-button component
+            template: `
+            <button
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2 disabled:bg-gray-400"
+                    :disabled="isDisabled"
+             @click="toggleDisable">
+             <!-- Slot is where the content will be injected -->
+              <slot />
+            </button>
+            `,
+            data() {
+              return {
+                isDisabled: false,
+              };
+            },
+
+            methods: {
+              toggleDisable() {
+                this.isDisabled = !this.isDisabled
+              },
+            }
           },
         },
       };
