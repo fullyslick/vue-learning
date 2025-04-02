@@ -17,21 +17,14 @@
   <body class="h-full grid place-items-center">
     <div id="app">
       <!-- This is how to render a component and inject content rendered in the slot -->
-      <app-button>Click me</app-button>
-      <app-button>Submit</app-button>
+      <!-- button-style is an example of a component prop -->
+      <app-button button-style="primary">Click me</app-button>
+      <app-button button-style="secondary">Submit</app-button>
     </div>
     <script type="module">
-      import AppButton from "./js/components/AppButton.js";
+      import App from "./js/components/App.js";
 
-      // This is the typical shape of component declaration
-      let app = {
-        // Declares the components that will be used in the app
-        components: {
-          "app-button": AppButton
-        },
-      };
-
-      Vue.createApp(app).mount("#app");
+      Vue.createApp(App).mount("#app");
     </script>
   </body>
 </html>
